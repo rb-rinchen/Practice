@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+</head>
+<body style="text-align: center;">
+    <button class="start" onclick="startQuiz()">Start Quiz</button>
+    <div class="container" style="width: 60%; border: 2px solid black; margin: 0 auto; margin-top: 20px;display: none;">
+        <div class="question">
+        </div>
+        <div class="options">
+
+        </div>
+        <div class="score"></div>
+        <button>next</button>
+    </div>
+</body>
+<script> 
+const questions = [
+    {
+        id: 1,
+        category: "food",
+        answer: "pizza",
+        options: ["cake", "milk", "pizza", "coldDrink"],
+        question: "Which food looks like a shape of a ball"
+    },
+    {
+        id: 2,
+        category: "sport",
+        answer: "football",
+        options: ["tennis", "cricket", "TT", "football"],
+        question: "Leo Messi is famous for which sport"
+    },
+    {
+        id:3,
+        category:"country",
+        answer:"Japan",
+        options:["Bhutan","china","Japan","Australia"],
+        question:"which country is known for anime"
+    },
+    {
+        id:4,
+        category:"country",
+        answer:"Japan",
+        options:["Bhutan","china","Japan","Australia"],
+        question:"which country is known for aafdasfe"
+    }
+];
+
+let score = 0;
+let currentQuestion = 0;
+const str = document.querySelector(".start");
+const cont = document.querySelector(".container");
+const opts = document.querySelector(".options");
+const quests = document.querySelector(".question");
+const scoreCont=document.querySelector(".score");
+let scoreEle=document.createElement("span");
+function startQuiz(){
+   str.style.display="none";
+   cont.style.display="block";
+   showQuestion();
+}
+function showQuestion(){
+    quests.textContent="";
+    opts.textContent="";
+    console.log(questions[currentQuestion].answer);
+    const {answer,options,question}=questions[currentQuestion];
+    const quest=document.createElement("p");
+    quest.textContent=question;
+    quests.appendChild(quest);
+    options.forEach((opt)=>{
+          let op=document.createElement("p");
+          op.textContent=opt;
+          op.className="option"
+          opts.appendChild(op);
+    });
+
+}
+opts.addEventListener("click",(event)=>{
+    const{answer}=questions[currentQuestion];
+        if(event.target.classList=="option"){
+            if(event.target.textContent===answer){
+                score+=1;
+               
+            }
+            else{
+                score-=0.5;
+                
+            }
+            scoreEle.textContent=`your score is: ${score}`;
+    scoreCont.appendChild(scoreEle);
+            nextQuestion();
+        }
+    })
+
+function nextQuestion(){
+    currentQuestion+=1;
+    if(currentQuestion>=4){
+        endQuiz();
+        return;
+    }
+    else{
+        showQuestion();
+    }
+}
+function endQuiz(){
+    quests.textContent="quiz completed";
+    opts.textContent="";
+    
+}
+
+
+</script>
+</html>

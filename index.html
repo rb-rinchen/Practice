@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100%;
+            border: 2px solid black;
+            height: 50px;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row-reverse;
+        }
+        p {
+            border: 1px solid red;
+            padding: 1px;
+            border-radius: 5px;
+            animation: popup 0.5s ease-in forwards; 
+        }
+        .para{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+        }
+        @keyframes popup {
+            0% {
+                opacity: 0;
+                transform: translateX(40px);
+            }80%{
+                opacity: 0.5;
+                transform: translateX(-10px);
+            }
+            100%{
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="para"></div>
+        <button>Click me</button>
+    </div>
+    <script>
+        const btn = document.querySelector("button");
+        const para=document.querySelector(".para");
+        const div = document.querySelector("div");
+        btn.addEventListener("click", () => {
+            let p = document.createElement("p");
+            p.textContent = "Please enter the details";
+            para.appendChild(p);
+
+            // Remove the paragraph after the animation ends
+            setTimeout(() => {
+                para.removeChild(p);
+            }, 2000); // Wait for 2 seconds before removing
+        });
+    </script>
+</body>
+</html>
